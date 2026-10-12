@@ -1,0 +1,30 @@
+"use client";
+
+import { motion, useReducedMotion } from "framer-motion";
+import type { ReactNode } from "react";
+import { easeOut, viewportOnce } from "@/lib/motion";
+
+export function RevealOnScroll({
+  children,
+  className,
+  delay = 0,
+  y = 32,
+}: {
+  children: ReactNode;
+  className?: string;
+  delay?: number;
+  y?: number;
+}) {
+  const reduced = useReducedMotion();
+  return (
+    <motion.div
+      className={className}
+      initial={reduced ? { opacity: 0 } : { opacity: 0, y }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={viewportOnce}
+      transition={{ duration: 0.7, ease: easeOut, delay }}
+    >
+      {children}
+    </motion.div>
+  );
+}

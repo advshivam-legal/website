@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-black: #000000;
+  --color-ink: #140009;
+  --color-wine: #4d0020;
+  --color-wine-deep: #1e000d;
+  --color-wine-mid: #2e0014;
+  --color-parchment: #ecebd8;
+  --color-parchment-80: #edecd9cc;
+  --color-magenta: #ff0073;
+  --color-magenta-deep: #eb006a;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    background-color: var(--color-ink);
+  }
+
+  body {
+    @apply bg-ink font-serif text-body text-parchment antialiased;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-magenta);
+    color: var(--color-black);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-magenta);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer components {
+  /* Link underline that grows from the left */
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 1px;
+    transition: background-size 0.5s var(--ease-out);
+  }
+  .link-underline:hover,
+  .group:hover .link-underline {
+    background-size: 100% 1px;
+  }
+
+  /* Long-form prose (terms, articles) */
+  .prose-editorial h2 {
+    @apply mb-4 mt-12 text-heading font-normal text-parchment;
+  }
+  .prose-editorial h3 {
+    @apply mb-3 mt-8 text-subhead font-normal text-parchment;
+  }
+  .prose-editorial p {
+    @apply mb-5 text-body-l text-parchment/75;
+  }
+  .prose-editorial ul {
+    @apply mb-5 list-disc space-y-2 pl-6 text-body-l text-parchment/75;
+  }
+  .prose-editorial a {
+    @apply text-magenta underline underline-offset-4;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
